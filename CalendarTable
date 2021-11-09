@@ -1,4 +1,7 @@
-Tabla calendario = ADDCOLUMNS(CALENDARAUTO(), "Id Fecha", FORMAT ( [Date]   , "YYYYMMDD" ),
+Tabla calendario = 
+ADDCOLUMNS(
+
+CALENDARAUTO(), "Id Fecha", FORMAT ( [Date]   , "YYYYMMDD" ),
 "Año", YEAR ( [Date] ),
 "Mes", FORMAT ( [Date], "MM" ),
 "Día",DAY([Date]),
@@ -17,4 +20,6 @@ Tabla calendario = ADDCOLUMNS(CALENDARAUTO(), "Id Fecha", FORMAT ( [Date]   , "Y
 "Offset Semana", DATEDIFF(TODAY(),[Date],WEEK),
 "Offset Año", DATEDIFF(TODAY(),[Date],YEAR),
 "Offset Trimestre", DATEDIFF(TODAY(),[Date],YEAR)
+
+
 )
