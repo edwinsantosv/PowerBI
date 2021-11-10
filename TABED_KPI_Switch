@@ -1,0 +1,6 @@
+IF ( [% Variance Sales] , 
+SWITCH (
+TRUE(), 
+[% Variance Sales] >= 0, 1 ,
+[% Variance Sales] < 0 , -1 , 
+0), BLANK())
