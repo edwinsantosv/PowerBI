@@ -23,3 +23,32 @@ CALENDARAUTO(), "Id Fecha", FORMAT ( [Date]   , "YYYYMMDD" ),
 
 
 )
+
+
+--English Version
+
+tb_Calendar = 
+ADDCOLUMNS(
+
+CALENDARAUTO(), "Date ID", FORMAT ( [Date]   , "YYYYMMDD" ),
+"Year", YEAR ( [Date] ),
+"Month", FORMAT ( [Date], "MM" ),
+"Day",DAY([Date]),
+"Period", FORMAT ( [Date], "YYYY/MM" ),
+"Period 2", FORMAT ( [Date], "YYYY/mmm" ),
+"Month Short Name", FORMAT ( [Date], "mmm" ),
+"Month Name", FORMAT ( [Date], "mmmm" ),
+"Week Day Number", WEEKDAY ( [Date] ),
+"Day of Week", FORMAT ( [Date], "dddd" ),
+"Short Week Day", FORMAT ( [Date], "ddd" ),
+"Trimester", "Q" & FORMAT ( [Date], "Q" ),
+"Year/Trimester", FORMAT ( [Date], "YYYY" ) & "/Q" & FORMAT ( [Date], "Q" ),
+"Week",WEEKNUM([Date]),
+"Day Offset", DATEDIFF(TODAY(),[Date],DAY),
+"Month Offset", DATEDIFF(TODAY(),[Date],MONTH),
+"Week Offset", DATEDIFF(TODAY(),[Date],WEEK),
+"Year Offset", DATEDIFF(TODAY(),[Date],YEAR),
+"Trimester Offset", DATEDIFF(TODAY(),[Date],YEAR)
+
+
+)
