@@ -1,0 +1,41 @@
+CÁLCULO DE LA FECHA ANTERIOR
+
+Last Date = 
+    
+    --De la tabla filtrada, selecciona la máxima fecha
+    
+    MAXX(
+    
+    --Tabla filtrada: de toda la tabla dates (ALL), selecciona las fechas menores a la fecha seleccionada (<)
+    
+    FILTER(
+        
+        ALL(tb_tr_All_Retailers_Campaigns[Date]),
+        tb_tr_All_Retailers_Campaigns[Date]<SELECTEDVALUE(tb_tr_All_Retailers_Campaigns[Date])
+        
+        ),
+    
+    tb_tr_All_Retailers_Campaigns[Date]
+    
+    )
+    
+    
+    
+KPI DEL LA FECHA ANTERIOR: [Last Date]
+
+CR LD = 
+--Fecha anterior
+VAR PrevDate=[Last Date]
+
+--Cálculo de la fecha anterior
+VAR PrevCR=
+    CALCULATE(
+        ms_All_Retailers_Campaigns[CR], --Acá se pone el cálculo. En este caso es el clickthrough rate.
+        FILTER(
+            ALL(tb_tr_All_Retailers_Campaigns[Date]), --Acá se pone la tabla dates
+            tb_tr_All_Retailers_Campaigns[Date]=PrevDate --Se filtra la tabla. La fecha es la anterior
+        )
+    )
+
+RETURN 
+    PrevCR
