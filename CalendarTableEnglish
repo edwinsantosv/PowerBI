@@ -1,0 +1,71 @@
+-- This is a calendar table that adds multiple columns for analysis purposes.
+Calendar = 
+VAR max_date=ROW("max",MAX('Instore HD'[Date])) 
+-- The variable `max_date` captures the latest date from the 'Instore HD' table.
+
+VAR min_date=ROW("min",MIN('Instore HD'[Date]))
+-- The variable `min_date` captures the earliest date from the 'Instore HD' table.
+
+RETURN
+
+ADDCOLUMNS(
+    CALENDAR(min_date, max_date), 
+    -- The CALENDAR function generates a continuous list of dates between `min_date` and `max_date`.
+    
+    "Date ID", FORMAT([Date], "YYYYMMDD"),
+    -- Creates a unique identifier for each date in 'YYYYMMDD' format.
+    
+    "Year", YEAR([Date]),
+    -- Extracts the year from the date.
+    
+    "Month", FORMAT([Date], "MM"),
+    -- Extracts the month in two-digit format.
+    
+    "Day", DAY([Date]),
+    -- Extracts the day of the month.
+    
+    "Period", FORMAT([Date], "YYYYMM"),
+    -- Creates a period in 'YYYYMM' format, useful for monthly grouping.
+    
+    "Month-Year", FORMAT([Date], "MMM-YYYY"),
+    -- Formats the date as 'Month-Year' (e.g., Jan-2024) for reporting purposes.
+    
+    "Month Short Name", FORMAT([Date], "mmm"),
+    -- Extracts a short month name (e.g., Jan).
+    
+    "Month Name", FORMAT([Date], "mmmm"),
+    -- Extracts the full month name (e.g., January).
+    
+    "Week Day Number", WEEKDAY([Date]),
+    -- Returns the number of the day in the week (e.g., Sunday = 1, Saturday = 7).
+    
+    "Day of Week", FORMAT([Date], "dddd"),
+    -- Returns the full name of the day (e.g., Monday).
+    
+    "Short Week Day", FORMAT([Date], "ddd"),
+    -- Returns the short version of the day name (e.g., Mon).
+    
+    "Trimester", "Q" & FORMAT([Date], "Q"),
+    -- Returns the quarter of the year (Q1, Q2, Q3, Q4).
+    
+    "Year/Trimester", FORMAT([Date], "YYYY") & "/Q" & FORMAT([Date], "Q"),
+    -- Creates a Year-Quarter label (e.g., 2024/Q1).
+    
+    "Week", WEEKNUM([Date]),
+    -- Returns the week number of the year.
+    
+    "Day Offset", DATEDIFF(TODAY(), [Date], DAY),
+    -- Calculates how many days away the date is from today.
+    
+    "Month Offset", DATEDIFF(TODAY(), [Date], MONTH),
+    -- Calculates how many months away the date is from today.
+    
+    "Week Offset", DATEDIFF(TODAY(), [Date], WEEK),
+    -- Calculates how many weeks away the date is from today.
+    
+    "Year Offset", DATEDIFF(TODAY(), [Date], YEAR),
+    -- Calculates how many years away the date is from today.
+    
+    "Trimester Offset", DATEDIFF(TODAY(), [Date], YEAR)
+    -- Calculates the quarter-year offset from today.
+)
